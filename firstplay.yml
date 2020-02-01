@@ -1,0 +1,8 @@
+--- 
+- 
+  hosts: target1
+  name: "test connectivity"
+  tasks: 
+   - name: "testing connectivity"
+     ping: ~
+
