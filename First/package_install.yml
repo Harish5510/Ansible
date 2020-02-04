@@ -1,8 +1,0 @@
--
-  name: "Installing mysql"
-  hosts: target1
-  become: yes
-  tasks:
-    -
-      name: "Installing"
-      yum: "name=mysql state=latest"
