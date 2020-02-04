@@ -1,0 +1,16 @@
+-
+  name: "User creation"
+  hosts: target1
+  become: yes
+  tasks:
+    -
+      name: "Group creation"
+      group:
+        name: dev
+        state: present
+    -
+      name: "User Creation"
+      user:
+        name: mano
+        uid: 1040
+        group: dev

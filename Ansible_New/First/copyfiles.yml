@@ -1,0 +1,14 @@
+-
+  name: "copy files check"
+  hosts: web1
+  become: yes
+  tasks:
+    -
+      name: "test1"
+      copy:
+        src: /home/centos/ansible_test/Ansible/First/
+        dest: /home/ec2-user/mano
+        owner: mano
+        group: dev
+        mode: 0755
+        backup: yes

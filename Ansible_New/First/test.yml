@@ -1,0 +1,9 @@
+-
+  name: "test1"
+  hosts: web1
+  become: yes
+  tasks:
+    - name: add several users
+      yum:
+        name: zip
+        state: latest

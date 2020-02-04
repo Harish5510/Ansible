@@ -1,0 +1,27 @@
+-
+  name: "dbcheck"
+  hosts: web1
+  become: yes
+  tasks:
+    -
+      name: "copying db sql file"
+      copy:
+        src: /home/centos/ansible_test/Ansible/First/prjct/db_creation.sql
+        dest: /home/ec2-user/mano
+
+    -
+      name: "creating db"
+      shell: 'mysql < db_creation.sql'
+      args:
+        chdir: /home/ec2-user/mano
+
+    -
+      name: "copying db sql file"
+      copy:
+        src: /home/centos/ansible_test/Ansible/First/prjct/db-load-script.sql
+        dest: /home/ec2-user/mano
+    -
+      name: "creating table"
+      shell: 'mysql < db-load-script.sql'
+      args:
+        chdir: /home/ec2-user/mano

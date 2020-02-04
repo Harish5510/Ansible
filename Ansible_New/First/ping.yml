@@ -1,0 +1,7 @@
+-
+  name: "Test1"
+  hosts: web1
+  tasks:
+    -
+      name: "ping test"
+      ping:

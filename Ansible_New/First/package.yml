@@ -1,0 +1,14 @@
+-
+  name: 'Pcakage installer play'
+  hosts: target1
+  tasks:
+    - 
+	   name: "Test"
+	   yum:
+	     name: '{{item}}'
+		 state: present 
+	   loops:
+         - mutt
+         - mysql
+         - zip
+

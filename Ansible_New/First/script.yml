@@ -1,0 +1,7 @@
+-
+  name: "script test"
+  hosts: web1
+  tasks:
+    -
+      name: "test12"
+      script: /home/centos/ansible_test/Ansible/First/testscript.sh

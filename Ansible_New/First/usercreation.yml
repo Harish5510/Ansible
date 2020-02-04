@@ -1,0 +1,16 @@
+-
+  name: "user test"
+  hosts: web1
+  become: yes
+  tasks:
+    -
+      name: "test2"
+      group:
+        name: devtest
+        state: present
+    -
+      name: "user test"
+      user:
+        name: mano
+        uid: 1040
+        group: devtest

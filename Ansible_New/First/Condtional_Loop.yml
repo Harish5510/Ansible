@@ -1,0 +1,14 @@
+-
+  name: Installing packages
+  hosts: target1
+  become: yes
+  vars:
+    packages:
+      - name: mutt
+      - name: mysql
+  tasks:
+    -
+      yum:
+        name: "{{ item.name }}"
+        state: present
+      loop: "{{ packages }}"

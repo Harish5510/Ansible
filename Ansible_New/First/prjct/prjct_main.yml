@@ -1,0 +1,125 @@
+-
+  name: "prjct"
+  hosts: web1
+  become: yes
+  tasks:
+    -
+      name: "Installing firewall"
+      yum:
+        name: firewalld
+        state: installed
+    -
+      name: "starting firewall"
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+    -
+      name: "Installing mariadb server"
+      yum:
+        name: mariadb-server
+        state: installed
+    -
+      name: "starting mariadb"
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    -
+      name: "enabling firewall rule"
+      firewalld:
+        zone: public
+        service: mysql
+        permanent: yes
+        state: enabled
+    -
+      name: "enabling firewall rule"
+      firewalld:
+        port: 3306/tcp
+        permanent: yes
+        state: enabled
+    -
+      name: "restarting firewall"
+      service:
+        name: firewalld
+        state: restarted
+
+    -
+      name: "copying db sql file"
+      copy:
+        src: /home/centos/ansible_test/Ansible/First/prjct/db_creation.sql
+        dest: /home/ec2-user/mano
+
+    -
+      name: "creating db"
+      shell: 'mysql < db_creation.sql'
+      args:
+        chdir: /home/ec2-user/mano
+
+    -
+      name: "copying db sql file"
+      copy:
+        src: /home/centos/ansible_test/Ansible/First/prjct/db-load-script.sql
+        dest: /home/ec2-user/mano
+    -
+      name: "creating table"
+      shell: 'mysql < db-load-script.sql'
+      args:
+        chdir: /home/ec2-user/mano
+    -
+      name: "installing httpd"
+      yum:
+        name: httpd
+        state: installed
+    -
+      name: "installing php"
+      yum:
+        name: php
+        state: installed
+    -
+      name: "installing php-mysql"
+      yum:
+        name: php-mysql
+        state: installed
+
+    -
+      name: "enabling firewall for port 80"
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+    -
+      name: "restarting firewall"
+      service:
+        name: firewalld
+        state: restarted
+    -
+      name: "modifying conf file"
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: 'DirectoryIndex index.html'
+        replace: 'DirectoryIndex index.php'
+        backup: yes
+    -
+      name: "starting httpd"
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    -
+      name: "installing git"
+      yum:
+        name: git
+        state: latest
+    -
+      name: "cloning git"
+      command: 'git clone https://github.com/kodekloudhub/learning-app-ecommerce.git /var/www/html/'
+
+    -
+      name: "modifying conf file"
+      replace:
+        path: /var/www/html/index.php
+        regexp: '172.20.1.101'
+        replace: 'localhost'
+        backup: yes

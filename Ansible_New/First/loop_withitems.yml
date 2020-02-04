@@ -1,0 +1,13 @@
+-
+  name: "installing packages"
+  hosts: target1
+  vars:
+    pack:
+      - name: mutt
+      - name: mysql
+  tasks:
+    -  name: "test1"
+       yum:
+         name: "{{ item }}"
+       when: ansible_os_family == "RedHat"
+       with_item: "{{ pack }}"
