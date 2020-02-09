@@ -1,0 +1,12 @@
+-
+  name: using debug module to print statements
+  hosts: web1
+  tasks:
+    -
+      name: printing messages
+      debug:
+        msg: System {{ inventory_hostname }} private ip is {{ ansible_all_ipv4_addresses }}
+    -
+      name: printing facts of our hostname
+      debug:
+        var: hostvars[inventory_hostname]

@@ -1,0 +1,14 @@
+-
+  name: "line in file"
+  hosts: web1
+  tasks:
+    -
+      name: "test1"
+      lineinfile:
+        path: "/home/Manokar"
+        line: {{ item }}
+      with_item:
+        - export JAVA_HOME=/usr/lib/jvm/default-java
+        - export CATALINA_HOME=/usr/share/tomcat
+        - export CATALINA_BASE=/usr/share/tomcat
+        - export CATALINA_PID=/usr/share/tomcat/temp/tomcat.pid

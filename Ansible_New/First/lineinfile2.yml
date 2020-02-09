@@ -1,0 +1,11 @@
+-
+  name: line in file test
+  hosts: web1
+  tasks:
+    -
+      name: task 1
+      lineinfile:
+        path: /home/ec2-user/linecheck.txt
+        insertbefore: '^Fruit=ginger'
+        firstmatch: yes
+        line: Fruit=tomato

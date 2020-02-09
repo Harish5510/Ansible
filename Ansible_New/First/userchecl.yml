@@ -1,0 +1,9 @@
+-
+  name: user check
+  hosts: web1
+  remote_user: ec2-user
+  tasks:
+    -
+      copy:
+        src: /home/centos/ansible_test/Ansible_New/First/varcheck.yml
+        dest: /home/ec2-user

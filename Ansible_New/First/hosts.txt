@@ -1,1 +1,0 @@
-web1 ansible_host=63.35.217.26 ansible_connection=ssh ansible_port=22 ansible_user=ec2-user
