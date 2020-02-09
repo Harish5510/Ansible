@@ -1,0 +1,16 @@
+-
+  name: web application deployment
+  hosts: web1
+  become: yes
+  tasks:
+    -
+      name: Installing dependancy
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "python"
+        - "python-devel"
+
+    - include_tasks: tasks/dbconf.yml
+    - include_tasks: tasks/appconf.yml

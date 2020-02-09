@@ -1,0 +1,51 @@
+    -
+      name: Install mysql community repository
+      become: yes
+      yum:
+        name: "http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm"
+        state: present
+    -
+      name: Installing mysql db
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "mysql-server"
+        - "mysql-devel"
+    -
+      name: Create mysql configuration file
+      copy:
+        content: |
+          [client]
+          user=root
+          password="@targ8et"
+        dest: "/etc/.my.cnf"
+
+    -
+      name: start mysql service
+      service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+    -
+      name: Install python-mysql, pip
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "MySQL-python"
+        - "python-pip"
+
+    -
+      name: craete application db
+      mysql_db:
+        name: "{{ dbname }}"
+        state: present
+    -
+      name: Create Database user
+      mysql_user:
+        name: "{{ username }}"
+        password: "{{ userpassword }}"
+        priv: '*.*:ALL'
+        state: present

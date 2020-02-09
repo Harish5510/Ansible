@@ -1,0 +1,14 @@
+    -
+      name: Installing python libraries
+      pip:
+        name: ['flask','flask-mysql']
+        state: present
+
+    -
+      name: copy source code
+      copy:
+        src: app.py
+        dest: /opt/app.py
+    -
+      name: start web server
+      shell: FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &
